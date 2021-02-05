@@ -17,7 +17,6 @@ public class Main {
             array[i] = rd.nextInt();
             System.out.println(array[i]);
         }
-
     }
     int sort(int arr[])
     {
