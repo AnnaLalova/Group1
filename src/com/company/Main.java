@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
                 }
             }
         }
+
         public static void main(String[] args) throws InterruptedException {
             Scanner input = new Scanner(System.in);
             System.out.println("Enter the array size: ");
