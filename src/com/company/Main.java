@@ -2,16 +2,14 @@ package com.company;
 
 
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
-
-
 
 
 class Main {
-
     void shellSort(int array[], int n) {
         int loop = 0;
         for (int interval = n / 2; interval > 0; interval /= 2) {
@@ -33,6 +31,7 @@ class Main {
         System.out.println("Enter the array size: ");
         int number = input.nextInt();
         Random rd = new Random();
+        Instant start = Instant.now();
         int[] array = new int[number];
         for (int i = 0; i < array.length; i++) {
             array[i] = rd.nextInt();
@@ -43,9 +42,11 @@ class Main {
         System.out.println("Sorted Array in Ascending Order: ");
         System.out.println(Arrays.toString(array));
 
+        Instant finish = Instant.now();
+        long timeElapsed = Duration.between(start, finish).toMillis();
 
-        long startTime = System.nanoTime();
-        long endTime = System.nanoTime();
-        System.out.println("Execution time in nanoseconds : " + (endTime-startTime));
+        System.out.println("That took " + timeElapsed + " MILLIseconds.");
+
         }
+
 }

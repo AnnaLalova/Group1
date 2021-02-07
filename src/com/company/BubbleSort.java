@@ -3,7 +3,6 @@ package com.company;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class BubbleSort {
     void bubbleMain(int array[], int n) {
@@ -27,6 +26,7 @@ public class BubbleSort {
         BubbleSort ob = new BubbleSort();
         int number = input.nextInt();
         Random rd = new Random();
+        long startTime = System.currentTimeMillis();
         int[] array = new int[number];
         int n = array.length;
         for (int i = 0; i < n; ++i) {
@@ -39,8 +39,7 @@ public class BubbleSort {
         System.out.println(Arrays.toString(array));
         System.out.println("Sorted array");
 
-        long startTime = System.nanoTime();
-        long endTime = System.nanoTime();
-        System.out.println("Execution time in nanoseconds : " + (endTime-startTime));
+        long endTime = System.currentTimeMillis();
+        System.out.println("That took " + (endTime - startTime) + " MILLIseconds.");
     }
 }
