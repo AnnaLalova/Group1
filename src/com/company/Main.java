@@ -43,9 +43,9 @@ class Main {
         System.out.println(Arrays.toString(array));
 
         Instant finish = Instant.now();
-        long timeElapsed = Duration.between(start, finish).toMillis();
+        long time = Duration.between(start, finish).toMillis();
 
-        System.out.println("That took " + timeElapsed + " MILLIseconds.");
+        System.out.println("That took " + time + " MILLIseconds.");
 
         }
 
