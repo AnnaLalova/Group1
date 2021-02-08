@@ -48,6 +48,6 @@ class Main {
         System.out.println("That took " + time + " MILLIseconds.");
         System.out.println("Loop iterated: " + loop);
 
-        }
+    }
 
 }
