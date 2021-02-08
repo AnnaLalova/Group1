@@ -17,38 +17,51 @@ public class Main {
         for (int i=0; i<array.length;i++) {
             array[i] = rd.nextInt();
             System.out.println(array[i]);
-        }
+        }}
 
-    }
-    int sort(int arr[])
-    {
-        int n = arr.length;
+        public static long startTime = System.nanoTime();
 
-        // Start with a big gap, then reduce the gap
-        for (int gap = n/2; gap > 0; gap /= 2)
-        {
-            // Do a gapped insertion sort for this gap size.
-            // The first gap elements a[0..gap-1] are already
-            // in gapped order keep adding one more element
-            // until the entire array is gap sorted
-            for (int i = gap; i < n; i += 1)
-            {
-                // add a[i] to the elements that have been gap
-                // sorted save a[i] in temp and make a hole at
-                // position i
-                int temp = arr[i];
+        public static void mergeSort(int[] a, int n) {
+            if (n < 2)
+                return;
+            int mid = n / 2;
+            int[] l = new int[mid];
+            int[] r = new int[n - mid];
 
-                // shift earlier gap-sorted elements up until
-                // the correct location for a[i] is found
-                int j;
-                for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
-                    arr[j] = arr[j - gap];
-
-                // put temp (the original a[i]) in its correct
-                // location
-                arr[j] = temp;
+            for (int i = 0; i < mid; i++) {
+                l[i] = a[i];
             }
+            for (int i = mid; i < n; i++) {
+                r[i - mid] = a[i];
+            }
+            mergeSort(l, mid);
+            mergeSort(r, n - mid);
+
+            merge(a, l, r, mid, n - mid);
         }
-        return 0;
-    }
-}
+
+        //In this step, we sort and merge the divided arrays from bottom to top and get the sorted array.
+        public static void merge(int[] a, int[] l, int[] r, int left, int right) {
+
+            int i = 0, j = 0, k = 0;
+
+            while (i < left && j < right) {
+
+                if (l[i] <= r[j])
+                    a[k++] = l[i++];
+                else
+                    a[k++] = r[j++];
+            }
+            while (i < left)
+                a[k++] = l[i++];
+
+            while (j < right)
+                a[k++] = r[j++];
+
+            long stopTime = System.nanoTime();
+            long elapsedTime = stopTime - startTime;
+            double elapsedTimeInSecond = (double) elapsedTime / 1_000_000_000;
+            {
+                System.out.println("That took " + (elapsedTimeInSecond) + " seconds");
+            }
+        }}
