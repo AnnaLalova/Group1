@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 
 class Main {
-    void shellSort(int array[], int n) {
+    int shellSort(int array[], int n) {
         int loop = 0;
         for (int interval = n / 2; interval > 0; interval /= 2) {
             for (int i = interval; i < n; i += 1) {
@@ -18,12 +18,12 @@ class Main {
                 int j;
                 for (j = i; j >= interval && array[j - interval] > temp; j -= interval) {
                     array[j] = array[j - interval];
-                     loop++;
+                    loop++;
                 }
                 array[j] = temp;
             }
         }
-        System.out.println("Loop iterated: " + loop);
+        return loop;
     }
 
     public static void main(String[] args) {
@@ -38,7 +38,7 @@ class Main {
             System.out.println(array[i]);
         }
         Main ss = new Main();
-        ss.shellSort(array, number);
+        int loop = ss.shellSort(array, number);
         System.out.println("Sorted Array in Ascending Order: ");
         System.out.println(Arrays.toString(array));
 
@@ -46,6 +46,7 @@ class Main {
         long time = Duration.between(start, finish).toMillis();
 
         System.out.println("That took " + time + " MILLIseconds.");
+        System.out.println("Loop iterated: " + loop);
 
         }
 
