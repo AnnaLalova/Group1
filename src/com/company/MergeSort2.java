@@ -4,7 +4,7 @@ package com.company;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
+public class MergeSort2 {
 
 
     static int count = 0;
@@ -92,7 +92,7 @@ public class Main {
             array[i] = rd.nextInt();
             System.out.println(array[i]);
         }
-        Main ob = new Main();
+        MergeSort2 ob = new MergeSort2();
         ob.mergeSort(array, 0, array.length -1);
         long stopTime = System.nanoTime();
         long elapsedTime = stopTime - startTime;
