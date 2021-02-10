@@ -1,67 +1,104 @@
 package com.company;
 
+
 import java.util.Random;
 import java.util.Scanner;
-
 
 public class Main {
 
 
-    public static void main(String[] args) {
-        Scanner input=new Scanner(System.in);
-        System.out.println("Enter the array size: ");
-        int number=input.nextInt();
-        //System.out.println("Enter the array size: " + number);
-        Random rd=new Random();
-        int[] array=new int[number];
-        for (int i=0; i<array.length;i++) {
-            array[i] = rd.nextInt();
-            System.out.println(array[i]);
-        }}
+    static int count = 0;
+    private static Object Arrays;
 
-        public static long startTime = System.nanoTime();
+    // Merge two sub arrays L and M into array
+    public static int merge(int[] array, int p, int q, int r) {
+        int n1 = q - p + 1;
+        int n2 = r - q;
+        count++;
 
-        public static void mergeSort(int[] a, int n) {
-            if (n < 2)
-                return;
-            int mid = n / 2;
-            int[] l = new int[mid];
-            int[] r = new int[n - mid];
+        int L[] = new int[n1];
+        int M[] = new int[n2];
 
-            for (int i = 0; i < mid; i++) {
-                l[i] = a[i];
+        // fill the left and right array
+        for (int i = 0; i < n1; i++)
+            L[i] = array[p + i];
+        for (int j = 0; j < n2; j++)
+            M[j] = array[q + 1 + j];
+
+        // Maintain current index of sub-arrays and main array
+        int i, j, k;
+        i = 0;
+        j = 0;
+        k = p;
+
+        // Until we reach either end of either L or M, pick larger among
+        // elements L and M and place them in the correct position at A[p..r]
+        // for sorting in descending
+        // use if(L[i] >= <[j])
+        while (i < n1 && j < n2) {
+            if (L[i] <= M[j]) {
+                array[k] = L[i];
+                i++;
+            } else {
+                array[k] = M[j];
+                j++;
             }
-            for (int i = mid; i < n; i++) {
-                r[i - mid] = a[i];
-            }
-            mergeSort(l, mid);
-            mergeSort(r, n - mid);
-
-            merge(a, l, r, mid, n - mid);
+            k++;
+        }
+        count++;
+        // When we run out of elements in either L or M,
+        // pick up the remaining elements and put in A[p..r]
+        while (i < n1) {
+            array[k] = L[i];
+            i++;
+            k++;
         }
 
-        //In this step, we sort and merge the divided arrays from bottom to top and get the sorted array.
-        public static void merge(int[] a, int[] l, int[] r, int left, int right) {
+        while (j < n2) {
+            array[k] = M[j];
+            j++;
+            k++;
+        }
+        return count;
+    }
 
-            int i = 0, j = 0, k = 0;
+    // Divide the array into two sub arrays, sort them and merge them
+    int mergeSort(int[] array, int left, int right) {
+        if (left < right) {
 
-            while (i < left && j < right) {
+            // m is the point where the array is divided into two sub arrays
+            int mid = (left + right) / 2;
 
-                if (l[i] <= r[j])
-                    a[k++] = l[i++];
-                else
-                    a[k++] = r[j++];
-            }
-            while (i < left)
-                a[k++] = l[i++];
+            // recursive call to each sub arrays
+            mergeSort(array, left, mid);
+            mergeSort(array, mid + 1, right);
 
-            while (j < right)
-                a[k++] = r[j++];
+            // Merge the sorted sub arrays
+            merge(array, left, mid, right);
+            count++;
+        }
+        return count;
+    }
+    public static void main(String args[]) {
 
-            long stopTime = System.nanoTime();
-            long elapsedTime = stopTime - startTime;
-            double elapsedTimeInSecond = (double) elapsedTime / 1_000_000_000;
-            {
-                System.out.println("That took " + (elapsedTimeInSecond) + " seconds");
-            }
-        }}
+        // created an unsorted array
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the size of array: ");
+        int number = input.nextInt();
+        Random rd = new Random();
+        long startTime = System.nanoTime();
+        int[] array = new int[number];
+        for (int i = 0; i < array.length; i++){
+            array[i] = rd.nextInt();
+            System.out.println(array[i]);
+        }
+        Main ob = new Main();
+        ob.mergeSort(array, 0, array.length -1);
+        long stopTime = System.nanoTime();
+        long elapsedTime = stopTime - startTime;
+        double elapsedTimeInSecond = (double) elapsedTime / 1_000_000_000;
+        System.out.println("That took: " + (elapsedTimeInSecond) + " seconds");
+        System.out.println("Loops counted: " + count);
+    }
+}
+
